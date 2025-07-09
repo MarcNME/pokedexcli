@@ -1,10 +1,9 @@
-package main
+package commands
 
 import (
 	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
+	"github.com/marc-enzmann/pokedexcli/internal/pokeapi"
 )
 
 func commandMap(config *Config) error {
@@ -41,19 +40,7 @@ func commandMapB(config *Config) error {
 }
 
 func callToLocationAreaApi(config *Config, url string) error {
-	res, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		return err
-	}
-
-	if err = res.Body.Close(); err != nil {
-		return err
-	}
+	body, err := pokeapi.CallPokeApi(url)
 
 	var locationArea LocationArea
 	err = json.Unmarshal(body, &locationArea)
