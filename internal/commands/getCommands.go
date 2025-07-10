@@ -1,9 +1,29 @@
 package commands
 
+import "sort"
+
 type cliCommand struct {
 	name        string
 	description string
 	Callback    func(config *Config) error
+}
+
+func GetCommandsSorted() map[string]cliCommand {
+	commands := GetCommands()
+	keys := make([]string, 0, len(commands))
+	sortedCommands := make(map[string]cliCommand)
+
+	for key := range commands {
+		keys = append(keys, key)
+	}
+
+	sort.Strings(keys)
+
+	for _, key := range keys {
+		sortedCommands[key] = commands[key]
+	}
+
+	return sortedCommands
 }
 
 func GetCommands() map[string]cliCommand {
@@ -27,6 +47,11 @@ func GetCommands() map[string]cliCommand {
 			name:        "mapb",
 			description: "Displays the previous 20 locations",
 			Callback:    commandMapB,
+		},
+		"explore": {
+			name:        "explore [location-name]",
+			description: "Explore a given location",
+			Callback:    commandExplore,
 		},
 	}
 }
