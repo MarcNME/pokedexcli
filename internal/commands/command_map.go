@@ -6,7 +6,7 @@ import (
 	"github.com/marc-enzmann/pokedexcli/internal/pokeapi"
 )
 
-func commandMap(config *Config) error {
+func commandMap(config *Config, _ []string) error {
 	var url string
 	if config.Next != "" {
 		url = config.Next
@@ -22,7 +22,7 @@ func commandMap(config *Config) error {
 	return nil
 }
 
-func commandMapB(config *Config) error {
+func commandMapB(config *Config, _ []string) error {
 	var url string
 	if config.Previous != "" {
 		url = config.Previous
@@ -41,8 +41,11 @@ func commandMapB(config *Config) error {
 
 func callToLocationAreaApi(config *Config, url string) error {
 	body, err := pokeapi.CallPokeApi(url)
+	if err != nil {
+		return err
+	}
 
-	var locationArea LocationArea
+	var locationArea locationAreas
 	err = json.Unmarshal(body, &locationArea)
 	if err != nil {
 		return err
@@ -57,7 +60,7 @@ func callToLocationAreaApi(config *Config, url string) error {
 	return nil
 }
 
-type LocationArea struct {
+type locationAreas struct {
 	Count    int    `json:"count"`
 	Next     string `json:"next"`
 	Previous string `json:"previous"`

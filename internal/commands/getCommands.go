@@ -5,7 +5,7 @@ import "sort"
 type cliCommand struct {
 	name        string
 	description string
-	Callback    func(config *Config) error
+	Callback    func(config *Config, parameters []string) error
 }
 
 func GetCommandsSorted() map[string]cliCommand {
@@ -49,7 +49,7 @@ func GetCommands() map[string]cliCommand {
 			Callback:    commandMapB,
 		},
 		"explore": {
-			name:        "explore [location-name]",
+			name:        "explore <location>",
 			description: "Explore a given location",
 			Callback:    commandExplore,
 		},

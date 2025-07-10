@@ -21,7 +21,7 @@ func StartRepl() {
 		if !ok {
 			fmt.Println("Unknown command")
 		} else {
-			err := command.Callback(&config)
+			err := command.Callback(&config, cleanedInput)
 			if err != nil {
 				fmt.Printf("unexpected Error: %v", err)
 			}
