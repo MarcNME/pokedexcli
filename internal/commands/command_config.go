@@ -1,6 +1,7 @@
 package commands
 
 type Config struct {
-	Next     string
-	Previous string
+	Next          string
+	Previous      string
+	CaughtPokemon map[string]Pokemon
 }

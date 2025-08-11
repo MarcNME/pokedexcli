@@ -10,7 +10,9 @@ import (
 
 func StartRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
-	var config = commands.Config{}
+	var config = commands.Config{
+		CaughtPokemon: make(map[string]commands.Pokemon),
+	}
 	for {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()
