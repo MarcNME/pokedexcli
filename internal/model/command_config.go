@@ -1,4 +1,4 @@
-package commands
+package model
 
 type Config struct {
 	Next          string

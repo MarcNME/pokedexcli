@@ -3,10 +3,12 @@ package commands
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/marc-enzmann/pokedexcli/internal/model"
 	"github.com/marc-enzmann/pokedexcli/internal/pokeapi"
 )
 
-func commandMap(config *Config, _ []string) error {
+func commandMap(config *model.Config, _ []string) error {
 	var url string
 	if config.Next != "" {
 		url = config.Next
@@ -22,7 +24,7 @@ func commandMap(config *Config, _ []string) error {
 	return nil
 }
 
-func commandMapB(config *Config, _ []string) error {
+func commandMapB(config *model.Config, _ []string) error {
 	var url string
 	if config.Previous != "" {
 		url = config.Previous
@@ -39,13 +41,13 @@ func commandMapB(config *Config, _ []string) error {
 	return nil
 }
 
-func callToLocationAreaApi(config *Config, url string) error {
+func callToLocationAreaApi(config *model.Config, url string) error {
 	body, err := pokeapi.CallPokeApi(url)
 	if err != nil {
 		return err
 	}
 
-	var locationArea locationAreas
+	var locationArea model.LocationAreas
 	err = json.Unmarshal(body, &locationArea)
 	if err != nil {
 		return err
@@ -58,14 +60,4 @@ func callToLocationAreaApi(config *Config, url string) error {
 		fmt.Println(result.Name)
 	}
 	return nil
-}
-
-type locationAreas struct {
-	Count    int    `json:"count"`
-	Next     string `json:"next"`
-	Previous string `json:"previous"`
-	Results  []struct {
-		Name string `json:"name"`
-		URL  string `json:"url"`
-	} `json:"results"`
 }

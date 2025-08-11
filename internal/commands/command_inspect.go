@@ -1,8 +1,12 @@
 package commands
 
-import "fmt"
+import (
+	"fmt"
 
-func commandInspect(config *Config, args []string) error {
+	"github.com/marc-enzmann/pokedexcli/internal/model"
+)
+
+func commandInspect(config *model.Config, args []string) error {
 	pokemon, ok := config.CaughtPokemon[args[1]]
 
 	if !ok {

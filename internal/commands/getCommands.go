@@ -1,11 +1,15 @@
 package commands
 
-import "sort"
+import (
+	"sort"
+
+	"github.com/marc-enzmann/pokedexcli/internal/model"
+)
 
 type cliCommand struct {
 	name        string
 	description string
-	Callback    func(config *Config, parameters []string) error
+	Callback    func(config *model.Config, parameters []string) error
 }
 
 func GetCommandsSorted() map[string]cliCommand {

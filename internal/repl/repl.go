@@ -3,15 +3,18 @@ package repl
 import (
 	"bufio"
 	"fmt"
+
 	"github.com/marc-enzmann/pokedexcli/internal/commands"
+	"github.com/marc-enzmann/pokedexcli/internal/model"
+
 	"os"
 	"unicode"
 )
 
 func StartRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
-	var config = commands.Config{
-		CaughtPokemon: make(map[string]commands.Pokemon),
+	var config = model.Config{
+		CaughtPokemon: make(map[string]model.Pokemon),
 	}
 	for {
 		fmt.Print("Pokedex > ")

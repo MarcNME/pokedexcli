@@ -2,10 +2,11 @@ package pokeapi
 
 import (
 	"fmt"
-	"github.com/marc-enzmann/pokedexcli/internal/pokecache"
 	"io"
 	"net/http"
 	"time"
+
+	"github.com/marc-enzmann/pokedexcli/internal/pokecache"
 )
 
 var cache = pokecache.NewCache(5 * time.Minute)
